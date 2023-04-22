@@ -1,16 +1,17 @@
-# This is a sample Python script.
+import logging
+import coloredlogs
+from constants.api_keys import api_key, api_key_secret
+from api.twitter_authenticator import TwitterAuthentication
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    # setup logging
+    logging.basicConfig()
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    coloredlogs.install(level=logging.DEBUG, logger=logger)
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    logger.info('Starting twitter sentiment Analysis')
+    twitter_authenticator = TwitterAuthentication(api_key, api_key_secret, logger)
+
+    auth = twitter_authenticator.authenticate_user()
+    logger.info('Twitter Authentication Successful')
